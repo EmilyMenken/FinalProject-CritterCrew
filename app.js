@@ -14,7 +14,6 @@ const pool = mariadb.createPool({
 });
 
 const PORT = process.env.APP_PORT || 3000;
-const uid; // how do I get this from the server when someone logs in?
 
 async function connect() {
     try {
@@ -62,54 +61,53 @@ app.post('/newAccount', async (req, res) => {
         zip_code: req.body.zipcode
     }
 
-    const result = validateNewUser(newAccount);
-    if (!result.isValid) {
-        console.log(result.errors);
-        res.send(result.errors);
-        return;
-    }
+    // const result = validateNewUser(newAccount);
+    // if (!result.isValid) {
+    //     console.log(result.errors);
+    //     res.send(result.errors);
+    //     return;
+    // }
 
     newAccount.phone = newAccount.phone.replace(/-/g, "");
+    
+    // console.log(newAccount);
 
     const conn = await connect();
 
     const insertQuery = await conn.query(`insert into users
         (fname, lname, email, password, phone, street_address, city, state, zip_code)
-        values ('?', '?', '?', '?','?', '?', '?', '?', '?')`,
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [ newAccount.fname, newAccount.lname, newAccount.email, newAccount.password, newAccount.phone, newAccount.street_address, newAccount.city, newAccount.state, newAccount.zip_code ]
     );
 
+    // console.log(insertQuery);
     res.render('accountSuccess', { newAccount });
 
 });
 
 
 // TODO: Implement create new appointment
-app.post('/newAppointment', async (req, res) => {
+// app.post('/newAppointment', async (req, res) => {
     
-    
-    const newAppointment = {
-       uid: 
-    }
 
-    const result = validateNewAppointment(newAppointment);
-    if (!result.isValid) {
-        console.log(result.errors);
-        res.send(result.errors);
-        return;
-    }
+//     const result = validateNewAppointment(newAppointment);
+//     if (!result.isValid) {
+//         console.log(result.errors);
+//         res.send(result.errors);
+//         return;
+//     }
 
-    const conn = await connect();
+//     const conn = await connect();
 
-    const insertQuery = await conn.query(`insert into appointment
-        (uid, appt_date, petname, pettype, service, friendly)
-        values ('?', '?', '?', '?', '?', '?')`,
-        [ newAppointment.uid, newAccount.lname, newAccount.email, newAccount.password, newAccount.phone, newAccount.street_address, newAccount.city, newAccount.state, newAccount.zip_code ]
-    );
+//     const insertQuery = await conn.query(`insert into appointment
+//         (uid, appt_date, petname, pettype, service, friendly)
+//         values ('?', '?', '?', '?', '?', '?')`,
+//         [ newAppointment.uid, newAccount.lname, newAccount.email, newAccount.password, newAccount.phone, newAccount.street_address, newAccount.city, newAccount.state, newAccount.zip_code ]
+//     );
 
-    res.render('accountSuccess', { newAccount });
+//     res.render('accountSuccess', { newAccount });
 
-});
+// });
 
 
 app.listen(PORT, () => {
