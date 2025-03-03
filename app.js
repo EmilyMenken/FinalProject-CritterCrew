@@ -48,6 +48,7 @@ app.get('/login', (req, res) => {
     res.render('login.ejs')
 });
 
+//TODO: Finish implementing validation
 app.post('/newAccount', async (req, res) => {
     const newAccount = {
         fname: req.body.fname,
@@ -109,6 +110,9 @@ app.post('/newAccount', async (req, res) => {
 
 // });
 
+// TODO: Implement login page route
+
+// TODO: Implement logging in (post) route
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
