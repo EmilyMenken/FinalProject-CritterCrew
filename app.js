@@ -15,6 +15,9 @@ const pool = mariadb.createPool({
 
 const PORT = process.env.APP_PORT || 3000;
 
+let loggedIn = false;
+let userID = -1;
+
 async function connect() {
     try {
         const conn = await pool.getConnection();
@@ -43,13 +46,8 @@ app.get('/createAccount', (req, res) => {
     res.render('createAccount');
 });
 
-// go to the log in page
-app.get('/login', (req, res) => {
-    res.render('login.ejs')
-});
-
 //TODO: Finish implementing validation
-app.post('/newAccount', async (req, res) => {
+app.post('/createAccount', async (req, res) => {
     const newAccount = {
         fname: req.body.fname,
         lname: req.body.lname,
@@ -62,6 +60,8 @@ app.post('/newAccount', async (req, res) => {
         zip_code: req.body.zipcode
     }
 
+
+    //TODO: uncomment after implementing validation
     // const result = validateNewUser(newAccount);
     // if (!result.isValid) {
     //     console.log(result.errors);
@@ -86,33 +86,39 @@ app.post('/newAccount', async (req, res) => {
 
 });
 
-
-// TODO: Implement create new appointment
-// app.post('/newAppointment', async (req, res) => {
-    
-
-//     const result = validateNewAppointment(newAppointment);
-//     if (!result.isValid) {
-//         console.log(result.errors);
-//         res.send(result.errors);
-//         return;
-//     }
-
-//     const conn = await connect();
-
-//     const insertQuery = await conn.query(`insert into appointment
-//         (uid, appt_date, petname, pettype, service, friendly)
-//         values ('?', '?', '?', '?', '?', '?')`,
-//         [ newAppointment.uid, newAccount.lname, newAccount.email, newAccount.password, newAccount.phone, newAccount.street_address, newAccount.city, newAccount.state, newAccount.zip_code ]
-//     );
-
-//     res.render('accountSuccess', { newAccount });
-
-// });
-
-// TODO: Implement login page route
+// go to the log in page
+app.get('/login', (req, res) => {
+    res.render('login.ejs')
+});
 
 // TODO: Implement logging in (post) route
+app.post('/login', async (req, res) => {
+    //things
+});
+
+// TODO: Implement create new appointment
+// TODO: How do I get uid out of the server?
+app.post('/newAppointment', async (req, res) => {
+    const result = validateNewAppointment(newAppointment);
+    if (!result.isValid) {
+        console.log(result.errors);
+        res.send(result.errors);
+        return;
+    }
+
+    const conn = await connect();
+
+    const insertQuery = await conn.query(`insert into appointment
+        (uid, appt_date, petname, pettype, service, friendly)
+        values (?, ?, ?, ?, ?, ?)`,
+        [ newAppointment.uid, newAccount.lname, newAccount.email, newAccount.password, newAccount.phone, newAccount.street_address, newAccount.city, newAccount.state, newAccount.zip_code ]
+    );
+
+    res.render('accountSuccess', { newAccount });
+
+});
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
