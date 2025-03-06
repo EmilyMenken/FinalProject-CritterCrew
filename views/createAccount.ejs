@@ -41,8 +41,10 @@
 
 <!--grabbed the drop down list from this website ->  https://www.freeformatter.com/usa-state-list-html-select.html -->
 
-                <select>
-                    <option value= "select"> Select your state!</option>
+        <label for="state">Select your state:
+
+                <select name= "state" id="state">
+                    <option value= "select"> ... </option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
@@ -95,11 +97,9 @@
                     <option value="WI">Wisconsin</option>
                     <option value="WY">Wyoming</option>
                 </select>
+           </label>
 
 
-            <label for="state">State:
-                <input type="text" maxlength="2" name="state" id="state" placeholder="WA">
-            </label>
             <label for="zip_code">Zip Code:
                 <input type="text" maxlength="5" name="zip_code" id="zip_code" placeholder="55555">
             </label>
