@@ -19,7 +19,7 @@ export function validateNewUser(data) {
         errors.push("Email is required and must be valid");
     }
     
-    // TODO: Validate password
+    // +TODO: Validate password
     // Must include capital, lowercase, 1 symbol
     // https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch04s19.html
     var password = data.password.trim();
@@ -42,17 +42,41 @@ export function validateNewUser(data) {
         errors.push("The password must be 8-32 characters long and needs 1 uppercase letter (A-Z), 1 lowercase letter (A-Z), 1 digit (0-9), and 1 special character (~!@#$%^&*()_+`-={}[]\\|;:'\").,<>/?");
     }
 
-    // TODO: Validate street_address
-    // must not be blank
+    //+TODO: Validate phone number
+    if (!data.phone || data.phone.trim() === "" ||
+        !/^\d{3}-\d{3}-\d{4}$/.test(data.phone.trim())) {
+            errors.push("The phone number should contain only digits and hyphens in the format xxx-xxx-xxxx.");
+        }
 
-    // TODO: Validate city
+    // +TODO: Validate street_address
     // must not be blank
+    if (!data.street_address || data.street_address.trim() === "") {
+        errors.push("Street address is required.");
+    }
 
-    // TODO: Validate state
+    // +TODO: Validate city
+    // must not be blank
+    if (!data.city || data.city.trim() === "") {
+        errors.push("City is required.");
+    }
+
+    // +TODO: Validate state
     // 2 letters from list of states
+    // 
+    var state = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
 
-    // TODO: Validate zip_code
+    if (state.indexOf(data.state) > -1 || data.state.trim().length() !== 2) {
+        errors.push("State should be entered as the 2 letter abbreviation.")
+    }
+
+    // +TODO: Validate zip_code
     // 5 numbers
+    // reusing var number from the password section
+    var zipCodeTest = /^[0-9]{5}$/;
+
+    if (!data.zip_code || zipCodeTest.test(data.zip_code.trim())) {
+        errors.push("Zip code should be five digits with no letters or characters.");
+    }
 
     return {
         isValid: errors.length === 0,
@@ -69,22 +93,26 @@ export function validateNewAppointment(data) {
     // This needs to be converted to the Database format
     // Appointment date should be after today's date+time
 
-    //TODO: validate pet name
-    if (!data.fname || data.fname.trim() === "") {
+    //+TODO: validate pet name
+    if (!data.petname || data.petname.trim() === "") {
         errors.push("Pet name is required");
     }
 
     //TODO: Validate pet type
-    // will depend on form fields (dropdown?)
+    // will depend on form fields (dropdown? cat/dog?)
     // pettype varchar(255),
 
     //TODO: validate service
+    // may depend on form fields (dropdown?)
     // service varchar(255),
+
 
     //TODO: validate friendly
     // friendly boolean default false
-    // Since there is a default this isn't required, but should be either 0 or 1
-
+    // should be either 0 or 1
+    if (![0, 1].includes(data.friendly)) {
+        errors.push("Friendly can be True (1) or False (0).")
+    }
 
     //TODO: validate UID?
     // this should be pulling automatically from the DB but it might be appropriate to do a query just in case since it's a foreign key
