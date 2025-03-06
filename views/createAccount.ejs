@@ -6,9 +6,6 @@
     <title>Create New Account</title>
 </head>
 <body>
-    
-<!-- fName, lName, eMail, phoneNumber, address -->
-
     <h1> Create New Account </h1>
     <form action="/createAccount" method="post">
         <fieldset>
@@ -33,6 +30,11 @@
             <label for="city">City:
                 <input type="text" maxlength="255" name="city" id="city" placeholder="Hometown">
             </label>
+
+           <!-- TODO: can we make this a dropdown?  -->
+           <!-- 
+            ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
+            -->
             <label for="state">State:
                 <input type="text" maxlength="2" name="state" id="state" placeholder="WA">
             </label>
