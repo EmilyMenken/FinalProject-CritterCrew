@@ -10,17 +10,41 @@
 <!-- fName, lName, eMail, phoneNumber, address -->
 
     <h1> Create New Account </h1>
-    <form action="/" method="post">
+    <form action="/createAccount" method="post">
+        <fieldset>
+            <label for="fname">First Name:
+                <input type="text" maxlength="255" name="fname" placeholder="First Name">
+            </label>
+            <label for="lname">Last Name:
+                <input type="text" maxlength="255" name="lname" id="lname" placeholder="Last Name">
+            </label>    
+            <label for="email">Email:
+                <input type="email" maxlength="255" name="email" id="email" placeholder="example@email.com">
+            </label>
+            <label for="password">Password:
+                <input type="text" maxlength="255" name="password" id="password" placeholder="enter a password">
+            </label>
+            <label for="phone">Phone:
+                <input type="tel" maxlength="12" name="phone" id="phone" placeholder="000-000-0000">
+            </label>
+            <label for="street_address">Street Address:
+                <input type="text" maxlength="255" name="street_address" id="street_address" placeholder="555 A Ave.">
+            </label>
+            <label for="city">City:
+                <input type="text" maxlength="255" name="city" id="city" placeholder="Hometown">
+            </label>
+            <label for="state">State:
+                <input type="text" maxlength="2" name="state" id="state" placeholder="WA">
+            </label>
+            <label for="zip_code">Zip Code:
+                <input type="text" maxlength="5" name="zip_code" id="zip_code" placeholder="55555">
+            </label>
+            <button type="submit">Submit</button>    
+        </fieldset> <!-- End Fieldset -->
     
-    <fieldset>
-    
-    
-        
-    </fieldset> <!-- End Fieldset -->
-    
-        </form> <!-- End form -->
+    </form> <!-- End form -->
 
-        <a href="/"><button>Back to landing page</button></a>
+    <a href="/"><button>Back to landing page</button></a>
 
 </body>
 </html>
