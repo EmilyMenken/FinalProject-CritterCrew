@@ -6,10 +6,22 @@ img{
     width: 200px;
 }
 
-div{
-
+fieldset {
 display: flex;
 
 flex-direction: column;
+align-items: center;
 
+padding:10px;
+margin:10px;
+}
+
+
+fieldset >label {
+    display: flex;
+
+    flex-direction: column;
+    align-items: flex-start;
+    
+    margin:10px;
 }
