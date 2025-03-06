@@ -1,5 +1,12 @@
 body{
-    background-color: lightblue;
+    background-color: #A8E0FF;
+
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: #082B74;
 }
 
 img{
@@ -7,35 +14,62 @@ img{
 }
 
 fieldset {
-display: flex;
-
-flex-direction: column;
-align-items: center;
-
-padding:10px;
-margin:10px;
-}
-
-
-fieldset >label {
     display: flex;
-
     flex-direction: column;
-    align-items: baseline;
-    
-    margin:10px;
-
-}
-
-label > select {
-    display: flex;
-
-    flex-direction: column;
-    
     align-items: center;
+    justify-content: center;
 
-    width: 169px;
+    padding: 10px;
+    margin: 10px;
+    
+    width: 400px;
+
+    border:none;
+
+   
 
 }
 
+fieldset > label {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    justify-content: space-between;
 
+    margin: 5px;
+
+}
+
+label > input {
+    width: 180px;
+}
+
+label > select{
+
+    width:187px;
+
+}
+
+label {
+    justify-content: center;
+
+    display: flex;
+    width: 100%;
+}
+
+button{
+    background-color: #cfacc0d6;
+    margin-top: 10px;
+
+    font-weight: bold;
+
+    color:#082B74;
+}
+
+button:hover{
+background-color: #B08EA2;
+}
+
+button#createAccountButton{
+margin-top: 30px;
+}
