@@ -88,35 +88,48 @@ export function validateNewUser(data) {
 export function validateNewAppointment(data) {
     const errors = [];
 
-    //TODO: Validate appt date
-    // appt_date datetime
-    // This needs to be converted to the Database format
-    // Appointment date should be after today's date+time
+    //+TODO: Validate appt date
+    if (!data.appt_date || data.appt_date.trim() == "" ||
+        data.appt_date > new Date()) {
+        errors.push("A date is required and must be a future date.")
+    }
 
     //+TODO: validate pet name
     if (!data.petname || data.petname.trim() === "") {
         errors.push("Pet name is required");
     }
 
-    //TODO: Validate pet type
-    // will depend on form fields (dropdown? cat/dog?)
-    // pettype varchar(255),
+    //+TODO: Validate pet type
+    if (!data.pettype) {
+        errors.push("Select cat or dog");
+    } else {
+        const validOptions = [ "cat", "dog" ];
+        if (!validOptions.includes(data.pettype)) {
+            errors.push("We only know how to groom a cat or dog.");
+        }
+    }
 
     //TODO: validate service
     // may depend on form fields (dropdown?)
     // service varchar(255),
+    if (data.service === "PLACEHOLDER TEXT") { //TODO: Replace Placeholder Text
+        errors.push("Please select a service.");
+    } else { //TODO: Add services list
+        const validServices = [ "Placeholder1", "Placeholder2" ];
+        if (!validSizes.includes(data.service)) {
+            errors.push("Please select a valid service from our list.");
+        }
+    }
 
-
-    //TODO: validate friendly
+    //+TODO: validate friendly
     // friendly boolean default false
     // should be either 0 or 1
     if (![0, 1].includes(data.friendly)) {
         errors.push("Friendly can be True (1) or False (0).")
     }
 
-    //TODO: validate UID?
-    // this should be pulling automatically from the DB but it might be appropriate to do a query just in case since it's a foreign key
-    // foreign key (uid) references users(uid)
-    // might be better to do the validation in the main function for the async
-
+    return {
+        isValid: errors.length === 0,
+        errors
+    }
 }
