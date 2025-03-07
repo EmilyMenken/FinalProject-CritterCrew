@@ -17,6 +17,9 @@
 <!-- fName, lName, eMail, phoneNumber, address -->
 
     <h1> Log In To Existing Account </h1>
+    <% if (message) { %>
+        <span class="err"><%= message %></span>
+    <% } %>
     <form action="/login" method="post">    
         <fieldset>
         

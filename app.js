@@ -51,35 +51,44 @@ app.get('/createAccount', (req, res) => {
 //+TODO: Finish implementing validation
 app.post('/createAccount', async (req, res) => {
     const newAccount = {
-        fname: req.body.fname,
-        lname: req.body.lname,
-        email: req.body.email,
-        password: req.body.password,
-        phone: req.body.phone,
-        street_address: req.body.street_address,
-        city: req.body.city,
-        state: req.body.state,
-        zip_code: req.body.zipcode
+        fname: req.body.fname.trim(),
+        lname: req.body.lname.trim(),
+        email: req.body.email.trim(),
+        password: req.body.password.trim(),
+        phone: req.body.phone.trim(),
+        street_address: req.body.street_address.trim(),
+        city: req.body.city.trim(),
+        state: req.body.state.trim(),
+        zip_code: req.body.zip_code.trim()
     }
 
     //+TODO: uncomment after implementing validation
-    //TODO: test new account validation
-    // const result = validateNewUser(newAccount);
-    // if (!result.isValid) {
-    //     console.log(result.errors);
-    //     res.send(result.errors);
-    //     return;
-    // }
-    
+    //+TODO: test new account validation
+    const result = validateNewUser(newAccount);
+    if (!result.isValid) {
+        console.log(result.errors);
+        res.send(result.errors);
+        return;
+    }
+
+    console.log(result);
+
     newAccount.phone = newAccount.phone.replace(/-/g, "");
     
-    // console.log(newAccount);
+    // // console.log(newAccount);
 
     const conn = await connect();
 
-    // TODO: new user cannot have email that already exists on server (needs query
-    const emailCheck = await conn.query('SELECT * FROM users WHERE email = ?', [newAccount.uid])
-    console.log(emailCheck);
+    // +TODO: new user cannot have email that already exists on server
+    const emailCheck = await conn.query('SELECT * FROM users WHERE email = ?', [newAccount.email])
+    if (emailCheck.length > 0) {
+        res.send('logIn',{message: 'Email is already taken. Please log in.'});
+        
+        // return so we don't make a user with a duplicate email
+        return;
+    }
+    // console.log(emailCheck);
+    // console.log('did we get stuck?');
     
     const insertQuery = await conn.query(`insert into users
         (fname, lname, email, password, phone, street_address, city, state, zip_code)
@@ -144,10 +153,10 @@ app.post('/newAppointment', async (req, res) => {
     // if the user is logged in, we can process the new appointment
     if (loggedIn) {
         const newAppointment = {
-            uid: userData.uid,
-            appt_date: req.body.appt_date,
-            petname: req.body.petname,
-            service: req.body.service,
+            uid: userData.uid.trim(),
+            appt_date: req.body.appt_date.trim(),
+            petname: req.body.petname.trim(),
+            service: req.body.service.trim(),
             // set boolean for friendly or not
             friendly: req.body.friendly ? 1 : 0,
             timestamp: new Date()
