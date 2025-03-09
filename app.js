@@ -82,7 +82,9 @@ app.post('/createAccount', async (req, res) => {
     // +TODO: new user cannot have email that already exists on server
     const emailCheck = await conn.query('SELECT * FROM users WHERE email = ?', [newAccount.email])
     if (emailCheck.length > 0) {
-        res.send('logIn',{message: 'Email is already taken. Please log in.'});
+        console.log(emailCheck)
+        console.log("email already on server")
+        res.render('logIn', {message: ""});
         
         // return so we don't make a user with a duplicate email
         return;
@@ -97,12 +99,13 @@ app.post('/createAccount', async (req, res) => {
     );
 
     // console.log(insertQuery);
-    res.render('accountSuccess', { newAccount });
+    console.log("account created on database")
+    res.render('logIn', { newAccount, message: "Please log in" });
 });
 
 // go to the log in page
 app.get('/login', (req, res) => {
-    res.render('login')
+    res.render('login', {message: ""});
 });
 
 // +TODO: Implement logging in (post) route
@@ -126,7 +129,7 @@ app.post('/login', async (req, res) => {
 
     // +TODO: // load the correct user page (user or admin) based on uid (admin account should be uid: 1)
     if (!userData.uid) {
-        res.render('login');
+        res.render('login', {message: ""});
     } else if (userData.uid !== '1') {
         const userAppointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
         console.log('user route:' + userAppointments);
@@ -184,7 +187,7 @@ app.post('/newAppointment', async (req, res) => {
         res.render('accountSuccess', { newAccount });
     } else {
         // if the user is not logged in send them to the login page
-        res.send('login')
+        res.send('login', {message: ""})
     }
 });
 
