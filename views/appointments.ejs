@@ -20,8 +20,6 @@
 <h3>Your appointments</h3>
 
 <h1>Hello, <%= user.fname %>!</h1>
-    <p>We received your appointment request at <%= userData.timestamp %>.</p>
-
     <ul>
     <li> Last Name: <%=user.lname %> </li>
     <li> Email: <%= user.email %> </li>
@@ -30,6 +28,7 @@
     <li> Current city: <%=user.city %> </li>
     <li> Current state: <%= user.state %></li>
     <li> Current zipcode: <%= user.zip_code %> </li>
+    <li> Account created: <%= user.timestamp %></li>
     </ul>
 
 <h2>Make an Appointment!</h2>
