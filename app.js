@@ -43,6 +43,21 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+userData = {
+    //example user
+    uid: 2,
+    fname: "John",
+    lname: "Doe",
+    email: "johndoe@example.com",
+    phone: "1234567890",
+    street_address: "123 Street SE Ave",
+    city: "city",
+    state: "IL",
+    zip_code: "78451"
+};
+loggedIn = true;
+
+
 async function login(req, res) {
     // +TODO: // load the correct user page (user or admin) based on uid (admin account should be uid: 1)
     if (userData === null || userData.uid === undefined) {
@@ -133,7 +148,7 @@ app.post('/createAccount', async (req, res) => {
 
     // console.log(insertQuery);
     console.log("account created on database")
-    res.render('logIn', { newAccount, message: "Please log in" });
+    res.render('logIn', { newAccount, message: "Please log in below with your newly created account!" });
 });
 
 // go to the log in page
