@@ -20,6 +20,7 @@ const PORT = process.env.APP_PORT || 3000;
 let loggedIn = false;
 let userData = null;
 
+
 async function connect() {
     try {
         const conn = await pool.getConnection();
@@ -91,6 +92,7 @@ async function login(req, res) {
     }
 }
 
+
 // go to the create account page
 app.get('/createAccount', (req, res) => {
     res.render('createAccount');
@@ -147,7 +149,7 @@ app.post('/createAccount', async (req, res) => {
     );
 
     // console.log(insertQuery);
-    console.log("account created on database")
+    console.log("Account created on database")
     res.render('logIn', { newAccount, message: "Please log in below with your newly created account!" });
 });
 
@@ -200,7 +202,8 @@ app.post('/newAppointment', async (req, res) => {
             uid: userData.uid.trim(),
             appt_date: req.body.appt_date.trim(),
             petname: req.body.petname.trim(),
-            service: req.body.service.trim(),
+            pettype: req.body.pettype,
+            service: req.body.service,
             // set boolean for friendly or not
             friendly: req.body.friendly ? 1 : 0,
             timestamp: new Date()
@@ -228,12 +231,9 @@ app.post('/newAppointment', async (req, res) => {
         res.render('accountSuccess', { newAccount });
     } else {
         // if the user is not logged in send them to the login page
-        res.send('login', {message: ""})
+        res.send('login', {message: "To create an appointment, please log"})
     }
 });
-
-
-
 
 // +TODO: Implement logout
 app.get('/logout', (req, res) => {
