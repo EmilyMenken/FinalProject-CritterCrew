@@ -64,12 +64,12 @@ async function login(req, res) {
         if (userData.uid !== 1) {
             console.log("Logging in as user...");
             const appointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
-            console.log('user route: ' + JSON.stringify(appointments, null, 2));
+            console.log('appointments query: ' + JSON.stringify(appointments, null, 2));
             res.render('appointments', {appointments, user, loggedIn});
         } else {
             console.log("Logging in as admin...");
             const appointments = await conn.query('SELECT * FROM appointment');
-            console.log('admin route: ' + JSON.stringify(appointments, null, 2));
+            console.log('appointments query: ' + JSON.stringify(appointments, null, 2));
             res.render('appointments', {appointmens, user, loggedIn})
         }
     }
