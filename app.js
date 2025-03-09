@@ -145,8 +145,11 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/appointments', async (req, res) => {
-    res.render('appointments');
-})
+    if (!loggedIn || !userData) {
+        return res.render('login', { message: "Please log in first!" });
+    }
+    res.render('appointments', { userData });
+});    
 
 // +TODO: Implement create new appointment
 app.post('/newAppointment', async (req, res) => {
@@ -197,6 +200,9 @@ app.post('/newAppointment', async (req, res) => {
         res.send('login', {message: ""})
     }
 });
+
+
+
 
 // +TODO: Implement logout
 app.get('/logout', (req, res) => {
