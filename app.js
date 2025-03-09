@@ -184,6 +184,10 @@ app.get('/appointments', async (req, res) => {
     res.render('appointments');
 })
 
+app.get('newAppointment'), async (req, res) => {
+    res.render('newAppointment');
+}
+
 // +TODO: Implement create new appointment
 app.post('/newAppointment', async (req, res) => {
     // NOTE: Database fields
