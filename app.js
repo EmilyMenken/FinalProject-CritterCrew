@@ -115,7 +115,7 @@ app.post('/login', async (req, res) => {
         email: req.body.email.trim(),
         password: req.body.password.trim()
     }
-
+    console.log("message")
     const conn = await connect();
 
     // +TODO: Query the DB to see if we have an account where the email and password matches
@@ -133,13 +133,20 @@ app.post('/login', async (req, res) => {
     } else if (userData.uid !== '1') {
         const userAppointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
         console.log('user route:' + userAppointments);
+        console.log("first");
         res.render('appointments', {userAppointments});
+
     } else {
         const adminAppointments = await conn.query('SELECT * FROM appointment');
+        console.log("second");
         console.log('admin route:' + adminAppointments);
         res.render('appointments', {adminAppointments})
     }
 });
+
+app.get('/appointments', async (req, res) => {
+    res.render('appointments');
+})
 
 // +TODO: Implement create new appointment
 app.post('/newAppointment', async (req, res) => {
