@@ -163,8 +163,7 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/appointments', async (req, res) => {
-    const conn = await connect();
-    login(req, res, conn);
+    res.render('appointments');
 })
 
 // +TODO: Implement create new appointment
@@ -216,6 +215,9 @@ app.post('/newAppointment', async (req, res) => {
         res.send('login', {message: ""})
     }
 });
+
+
+
 
 // +TODO: Implement logout
 app.get('/logout', (req, res) => {
