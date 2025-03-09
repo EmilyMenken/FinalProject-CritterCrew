@@ -15,10 +15,9 @@ const pool = mariadb.createPool({
 
 const PORT = process.env.APP_PORT || 3000;
 
-// TODO: follow up on this in class to see how to do this better
+// +TODO: follow up on this in class
+// I know this isn't how it works in real life but this is just for class since we haven't learned sessions/cookies, etc.
 let loggedIn = false;
-
-// TODO: Store the user query data from login?
 let userData = null;
 
 async function connect() {
@@ -52,19 +51,19 @@ app.get('/createAccount', (req, res) => {
 //+TODO: Finish implementing validation
 app.post('/createAccount', async (req, res) => {
     const newAccount = {
-        fname: req.body.fname,
-        lname: req.body.lname,
-        email: req.body.email,
-        password: req.body.password,
-        phone: req.body.phone,
-        street_address: req.body.street_address,
-        city: req.body.city,
-        state: req.body.state,
-        zip_code: req.body.zipcode
+        fname: req.body.fname.trim(),
+        lname: req.body.lname.trim(),
+        email: req.body.email.trim(),
+        password: req.body.password.trim(),
+        phone: req.body.phone.trim(),
+        street_address: req.body.street_address.trim(),
+        city: req.body.city.trim(),
+        state: req.body.state.trim(),
+        zip_code: req.body.zip_code.trim()
     }
 
     //+TODO: uncomment after implementing validation
-    //TODO: test new account validation
+    //+TODO: test new account validation
     const result = validateNewUser(newAccount);
     if (!result.isValid) {
         console.log(result.errors);
@@ -72,14 +71,25 @@ app.post('/createAccount', async (req, res) => {
         return;
     }
 
+    console.log(result);
+
     newAccount.phone = newAccount.phone.replace(/-/g, "");
     
-    // console.log(newAccount);
+    // // console.log(newAccount);
 
     const conn = await connect();
 
-    // TODO: new user cannot have email that already exists on server (needs query
-
+    // +TODO: new user cannot have email that already exists on server
+    const emailCheck = await conn.query('SELECT * FROM users WHERE email = ?', [newAccount.email])
+    if (emailCheck.length > 0) {
+        res.send('logIn',{message: 'Email is already taken. Please log in.'});
+        
+        // return so we don't make a user with a duplicate email
+        return;
+    }
+    // console.log(emailCheck);
+    // console.log('did we get stuck?');
+    
     const insertQuery = await conn.query(`insert into users
         (fname, lname, email, password, phone, street_address, city, state, zip_code)
         values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -88,15 +98,14 @@ app.post('/createAccount', async (req, res) => {
 
     // console.log(insertQuery);
     res.render('accountSuccess', { newAccount });
-
 });
 
 // go to the log in page
 app.get('/login', (req, res) => {
-    res.render('login.ejs')
+    res.render('login')
 });
 
-// TODO: Implement logging in (post) route
+// +TODO: Implement logging in (post) route
 app.post('/login', async (req, res) => {
     // query if the username and password are correct
     const loginInfo = {
@@ -106,21 +115,30 @@ app.post('/login', async (req, res) => {
 
     const conn = await connect();
 
-    // TODO: Query the DB to see if we have an account where the email and password matches
+    // +TODO: Query the DB to see if we have an account where the email and password matches
     const results = await conn.query('SELECT * FROM users WHERE email = ? AND password = ?', [loginInfo.email, loginInfo.password]);
 
-    // TODO: If we have a username & password match in the DB, store the user info from the query and set logged in to true
+    // +TODO: If we have a username & password match in the DB, store the user info from the query and set logged in to true
     if (results.length() === 1) {
         userData = results[0];
         loggedIn = true;
     }
 
-    // TODO: // load the correct user page (user or admin) based on uid (admin account should be uid: 1)
-    res.render({userData});
+    // +TODO: // load the correct user page (user or admin) based on uid (admin account should be uid: 1)
+    if (!userData.uid) {
+        res.render('login');
+    } else if (userData.uid !== '1') {
+        const userAppointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
+        console.log('user route:' + userAppointments);
+        res.render('appointments', {userAppointments});
+    } else {
+        const adminAppointments = await conn.query('SELECT * FROM appointment');
+        console.log('admin route:' + adminAppointments);
+        res.render('appointments', {adminAppointments})
+    }
 });
 
-// TODO: Implement create new appointment
-// TODO: How do I get uid out of the server?
+// +TODO: Implement create new appointment
 app.post('/newAppointment', async (req, res) => {
     // NOTE: Database fields
     // aid int(5) auto_increment primary key,
@@ -132,49 +150,52 @@ app.post('/newAppointment', async (req, res) => {
     // friendly boolean default false,
     // foreign key (uid) references users(uid)
     
-    const newAppointment = {
-        uid: userData.uid,
-        appt_date: req.body.appt_date,
-        petname: req.body.petname,
-        service: req.body.service,
-        friendly: req.body.friendly
-    }
+    // if the user is logged in, we can process the new appointment
+    if (loggedIn) {
+        const newAppointment = {
+            uid: userData.uid.trim(),
+            appt_date: req.body.appt_date.trim(),
+            petname: req.body.petname.trim(),
+            service: req.body.service.trim(),
+            // set boolean for friendly or not
+            friendly: req.body.friendly ? 1 : 0,
+            timestamp: new Date()
+        }
     
-    // TODO: convert date format for DB
+        // connect to the database
+        const conn = await connect();
 
-    //TODO: verify uid against DB
-    // Follow up on this in class since it should really be done as part of validateNewAppointment
+        // validate new appointment
+        const result = validateNewAppointment(newAppointment);
+        if (!result.isValid) {
+            console.log(result.errors);
+            res.send(result.errors);
+            return;
+        }
 
-    // TODO: uncomment after completing validation
-    // validate new appointment
-    // const result = validateNewAppointment(newAppointment);
-    // if (!result.isValid) {
-    //     console.log(result.errors);
-    //     res.send(result.errors);
-    //     return;
-    // }
+        // +TODO: implement add new appointment query
+        const insertQuery = await conn.query(`insert into appointment
+            (uid, appt_date, petname, pettype, service, friendly, timestamp)
+            values (?, ?, ?, ?, ?, ?, ?)`,
+            [ newAppointment.uid, newAppointment.appt_date, newAppointment.petname, newAppointment.service, newAppointment.friendly, newAppointment.timestamp ]
+        );
 
-    // connect to the database
-    const conn = await connect();
-
-    // TODO: implement add new appointment query
-    // const insertQuery = await conn.query(`insert into appointment
-    //     (uid, appt_date, petname, pettype, service, friendly)
-    //     values (?, ?, ?, ?, ?, ?)`,
-    //     [  ]
-    // );
-
-    // TODO: Create the account creation confirmation page
-    res.render('accountSuccess', { newAccount });
-
+        // TODO: Create the account creation confirmation page
+        res.render('accountSuccess', { newAccount });
+    } else {
+        // if the user is not logged in send them to the login page
+        res.send('login')
+    }
 });
 
-// TODO: Implement logout
+// +TODO: Implement logout
 app.get('/logout', (req, res) => {
 
+    // reset loggedIn and userData
     loggedIn = false;
-    // TODO: set user account to empty
+    userData = null;
     
+    // send user to Home page
     res.render('home');
 });
 
