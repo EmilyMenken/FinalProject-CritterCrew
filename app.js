@@ -184,9 +184,10 @@ app.get('/appointments', async (req, res) => {
     res.render('appointments');
 })
 
-app.get('newAppointment'), async (req, res) => {
+app.get('/newAppointment', async (req, res) => {
+    console.log('going to appointments page');
     res.render('newAppointment');
-}
+})
 
 // +TODO: Implement create new appointment
 app.post('/newAppointment', async (req, res) => {
