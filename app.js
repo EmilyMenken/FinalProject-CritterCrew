@@ -50,16 +50,27 @@ async function login(req, res) {
         res.render('login', {message: "Please log in to access your appointments."});
     } else {
         const conn = await connect();
+        user = {
+            fname: userData.fname,
+            lname: userData.lname,
+            email: userData.email,
+            phone: userData.phone,
+            street_address: userData.street_address,
+            city: userData.city,
+            state: userData.state,
+            zip_code: userData.zip_code
+        }
+
         if (userData.uid !== 1) {
             console.log("Logging in as user...");
-            const userAppointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
-            console.log('user route: ' + JSON.stringify(userAppointments, null, 2));
-            res.render('appointments', {userAppointments});
+            const appointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
+            console.log('user route: ' + JSON.stringify(appointments, null, 2));
+            res.render('appointments', {appointments, user, loggedIn});
         } else {
             console.log("Logging in as admin...");
-            const adminAppointments = await conn.query('SELECT * FROM appointment');
-            console.log('admin route: ' + JSON.stringify(adminAppointments, null, 2));
-            res.render('appointments', {adminAppointments})
+            const appointments = await conn.query('SELECT * FROM appointment');
+            console.log('admin route: ' + JSON.stringify(appointments, null, 2));
+            res.render('appointments', {appointmens, user, loggedIn})
         }
     }
 }
