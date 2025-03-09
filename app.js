@@ -43,6 +43,38 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+async function login(req, res) {
+    // +TODO: // load the correct user page (user or admin) based on uid (admin account should be uid: 1)
+    if (userData === null || userData.uid === undefined) {
+        console.log("No UID saved, redirecting to log in page.")
+        res.render('login', {message: "Please log in to access your appointments."});
+    } else {
+        const conn = await connect();
+        user = {
+            fname: userData.fname,
+            lname: userData.lname,
+            email: userData.email,
+            phone: userData.phone,
+            street_address: userData.street_address,
+            city: userData.city,
+            state: userData.state,
+            zip_code: userData.zip_code
+        }
+
+        if (userData.uid !== 1) {
+            console.log("Logging in as user...");
+            const appointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
+            console.log('user route: ' + JSON.stringify(appointments, null, 2));
+            res.render('appointments', {appointments, user, loggedIn});
+        } else {
+            console.log("Logging in as admin...");
+            const appointments = await conn.query('SELECT * FROM appointment');
+            console.log('admin route: ' + JSON.stringify(appointments, null, 2));
+            res.render('appointments', {appointmens, user, loggedIn})
+        }
+    }
+}
+
 // go to the create account page
 app.get('/createAccount', (req, res) => {
     res.render('createAccount');
@@ -120,36 +152,19 @@ app.post('/login', async (req, res) => {
 
     // +TODO: Query the DB to see if we have an account where the email and password matches
     const results = await conn.query('SELECT * FROM users WHERE email = ? AND password = ?', [loginInfo.email, loginInfo.password]);
-
+    console.log("Results:" + JSON.stringify(results, null, 2));
     // +TODO: If we have a username & password match in the DB, store the user info from the query and set logged in to true
-    if (results.length() === 1) {
+    if (results.length === 1) {
         userData = results[0];
         loggedIn = true;
     }
 
-    // +TODO: // load the correct user page (user or admin) based on uid (admin account should be uid: 1)
-    if (!userData.uid) {
-        res.render('login', {message: ""});
-    } else if (userData.uid !== '1') {
-        const userAppointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
-        console.log('user route:' + userAppointments);
-        console.log("first");
-        res.render('appointments', {userAppointments});
-
-    } else {
-        const adminAppointments = await conn.query('SELECT * FROM appointment');
-        console.log("second");
-        console.log('admin route:' + adminAppointments);
-        res.render('appointments', {adminAppointments})
-    }
+    login(req, res, conn);
 });
 
 app.get('/appointments', async (req, res) => {
-    if (!loggedIn || !userData) {
-        return res.render('login', { message: "Please log in first!" });
-    }
-    res.render('appointments', { userData });
-});    
+    res.render('appointments');
+})
 
 // +TODO: Implement create new appointment
 app.post('/newAppointment', async (req, res) => {
