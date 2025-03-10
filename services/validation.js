@@ -85,7 +85,7 @@ export function validateNewUser(data) {
     }
 }
 
-// TODO: Validate new appointment
+// +TODO: Validate new appointment
 export function validateNewAppointment(data) {
     const errors = [];
 
