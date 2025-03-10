@@ -87,8 +87,45 @@ function newAppointmentValidation() {
     clearErrors();
     let isValid = true;
 
-    //TODO: validation
-    
+    //+TODO: validation
+    // getting today's date
+    const tomorrow = new Date();
+    // setting it to tomorrow and taking out the timestamp
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0,0,0,0);
+
+    let date = new Date(document.getElementById("date").value);
+
+    if (date < tomorrow) {
+        document.getElementById('err-date').style.display = "block";
+        isValid = false;
+    }
+
+    let pname = document.getElementById("pname").value;
+    if (pname === "") {
+        document.getElementById('err-date').style.display = "block";
+        isValid = false;
+    }
+
+    let petTypeButtons = document.getElementsByName("petType");
+    let count = 0;
+    for(let i=0; i<petTypeButtons.length; i++) {
+        if (petTypeButtons[i].checked) {
+            count++;
+        }
+    }
+
+    if (count === 0) {
+        document.getElementById('err-petType').style.display = "block";
+        isValid = false;
+    }
+
+    let serviceType = document.getElementById('serviceType').value;
+    if (serviceType === "select") {
+        document.getElementById('err-service').style.display = "block";
+        isValid = false;
+    }
+
     return isValid;
 }
 
@@ -109,6 +146,11 @@ if (accountForm) {
 }
 let appointmentForm = document.getElementById("appointment-form");
 if (appointmentForm) {
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    const tomorrow = today.toISOString().split('T')[0];
+    const dp = document.getElementById('date');
+    dp.setAttribute('min', tomorrow);
     appointmentForm.onsubmit = newAppointmentValidation;
 }
 

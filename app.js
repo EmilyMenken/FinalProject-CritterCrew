@@ -205,7 +205,7 @@ app.post('/newAppointment', async (req, res) => {
     if (loggedIn) {
         const newAppointment = {
             uid: userData.uid.trim(),
-            appt_date: req.body.appt_date.trim(),
+            appt_date: formatDate(req.body.appt_date),
             petname: req.body.petname.trim(),
             pettype: req.body.pettype,
             service: req.body.service,

@@ -110,14 +110,14 @@ export function validateNewAppointment(data) {
         }
     }
 
-    //TODO: validate service
+    //+TODO: validate service
     // may depend on form fields (dropdown?)
     // service varchar(255),
-    if (data.service === "PLACEHOLDER TEXT") { //TODO: Replace Placeholder Text
+    if (data.service === "select") { //+TODO: Replace Placeholder Text
         errors.push("Please select a service.");
-    } else { //TODO: Add services list
-        const validServices = [ "Placeholder1", "Placeholder2" ];
-        if (!validSizes.includes(data.service)) {
+    } else { //+TODO: Add services list
+        const validServices = [ "bath+brush", "bath+haircut", "nailtrim", "deluxe" ];
+        if (!validServices.includes(data.service)) {
             errors.push("Please select a valid service from our list.");
         }
     }

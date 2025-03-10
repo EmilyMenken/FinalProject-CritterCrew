@@ -20,33 +20,35 @@
         <fieldset>
 
 <label> Appointment date
-<input for ="date" type = "date" name="date"></input>
+<input for ="date" type = "date" name="date" id="date"></input>
+<span class="err" id="err-date">Please select a future date.</span>
 </label>
 
 
 <label> Pet Name
-    <input type="text" maxlength="255" name="pname" placeholder="Mittens"> Pet's name </input>    
+    <input type="text" maxlength="255" name="pname" placeholder="Mittens" id="pname"> Pet's name </input>
+    <span class="err" id="err-date">Pet name is required</span>  
 </label>
 
 <label> Pet type
     <input type="radio" name="petType" value="dog"> Dog </input>
-    <input type="radio" name="petType" value="cat"> Cat </input>    
+    <input type="radio" name="petType" value="cat"> Cat </input>
+    <span class="err" id="err-petType">Please select a type of pet.</span>  
 </label>   
     
 <label> Is your pet friendly?
-    <input type="checkbox" name="friendly?" value="friendly?"> Friendly </input>  
-    <input type="checkbox" name="friendly?" value="friendly?"> Not friendly </input>      
+    <input type="checkbox" name="friendly?" value="friendly?"> Yes </input>
 </label>
 
 <label for="serviceType">Service Type
     <select name= "serviceType" id="serviceType">
         <option value= "select"> Select type... </option>
-        <option value= "select"> Bath & Brush </option>
-        <option value= "select"> Bath & Haircut </option>
-        <option value= "select"> Nail clipping </option>
-        <option value= "select"> Deluxe package (Brush, Haircut, Nail clipping) </option>
+        <option value= "bath+brush"> Bath & Brush </option>
+        <option value= "bath+haircut"> Bath & Haircut </option>
+        <option value= "nailtrim"> Nail clipping </option>
+        <option value= "deluxe"> Deluxe package (Brush, Haircut, Nail clipping) </option>
     </select>
-        
+    <span class="err" id="err-service">Please select a service.</span>  
 </label>
 
 </fieldset>
