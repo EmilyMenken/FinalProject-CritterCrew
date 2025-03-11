@@ -101,15 +101,15 @@ app.get('/createAccount', (req, res) => {
 //+TODO: Finish implementing validation
 app.post('/createAccount', async (req, res) => {
     const newAccount = {
-        fname: req.body.fname.trim(),
-        lname: req.body.lname.trim(),
-        email: req.body.email.trim(),
-        password: req.body.password.trim(),
-        phone: req.body.phone.trim(),
-        street_address: req.body.street_address.trim(),
-        city: req.body.city.trim(),
-        state: req.body.state.trim(),
-        zip_code: req.body.zip_code.trim()
+        fname: req.body.fname,
+        lname: req.body.lname,
+        email: req.body.email,
+        password: req.body.password,
+        phone: req.body.phone,
+        street_address: req.body.street_address,
+        city: req.body.city,
+        state: req.body.state,
+        zip_code: req.body.zip_code
     }
 
     //+TODO: uncomment after implementing validation
@@ -204,9 +204,9 @@ app.post('/newAppointment', async (req, res) => {
     // if the user is logged in, we can process the new appointment
     if (loggedIn) {
         const newAppointment = {
-            uid: userData.uid.trim(),
-            appt_date: formatDate(req.body.appt_date),
-            petname: req.body.petname.trim(),
+            uid: userData.uid,
+            appt_date: req.body.appt_date,
+            petname: req.body.petname,
             pettype: req.body.pettype,
             service: req.body.service,
             // set boolean for friendly or not
