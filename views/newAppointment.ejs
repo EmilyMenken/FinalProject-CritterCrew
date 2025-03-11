@@ -10,11 +10,18 @@
 
 <!-- link to styleSheet -->
  <link rel="styleSheet" href="/styles/styles.css">
- <script src="scripts/client-validation.js" defer></script>
+
+ <!-- link to validation -->
+ <script src="/public/scripts/client-validation.js" defer></script>
+
+ 
 </head>
 <body>
    
-    <p>Create New Appointment</p>
+
+    <img id ="newAppointmentImg" src = "/pictures/dogLandingPagePicture.jpg">
+
+    <h2>Create New Appointment</h2>
 
     <form action="/newAppointment" method="post">
         <fieldset>
@@ -25,18 +32,18 @@
 
 
 <label> Pet Name
-    <input type="text" maxlength="255" name="pname" placeholder="Mittens"> Pet's name </input>    
+    <input type="text" maxlength="255" name="pname" placeholder="Mittens"></input>    
 </label>
 
 <label for="petType" class id="creatingNewAppointment"> Pet type
-    <input type="radio" name="petType" value="dog"> Dog </input>
-    <input type="radio" name="petType" value="cat"> Cat </input>
+    <input class="radioCheckboxInputs" type="radio" name="petType" value="dog"> Dog </input>
+    <input class="radioCheckboxInputs" type="radio" name="petType" value="cat"> Cat </input>
     <span class="err" id="err-petType">Please select a type of pet.</span>  
 </label>   
     
 <label> Is your pet friendly?
-    <input type="checkbox" name="friendly?" value="friendly?"> Friendly </input>  
-    <input type="checkbox" name="friendly?" value="friendly?"> Not friendly </input>      
+    <input class="radioCheckboxInputs" type="checkbox" name="friendly?" value="friendly?"> Friendly </input>  
+    <input class="radioCheckboxInputs" type="checkbox" name="friendly?" value="friendly?"> Not friendly </input>      
 </label>
 
 <label for="serviceType" class id="creatingNewAppointment">Service Type
@@ -50,8 +57,13 @@
     <span class="err" id="err-service">Please select a service.</span>  
 </label>
 
+<button type="submit" id ="createNewAppointment">Submit</button>    
+
 </fieldset>
 </form>
+
+<a href="/"><button>Back to landing page</button></a>
+<a href="/appointments"><button>Back to made appointments</button></a>  
 
 </body>
 </html>
