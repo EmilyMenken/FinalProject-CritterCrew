@@ -205,7 +205,7 @@ app.post('/newAppointment', async (req, res) => {
     if (loggedIn) {
         const newAppointment = {
             uid: userData.uid.trim(),
-            appt_date: req.body.appt_date.trim(),
+            appt_date: formatDate(req.body.appt_date),
             petname: req.body.petname.trim(),
             pettype: req.body.pettype,
             service: req.body.service,
@@ -231,9 +231,8 @@ app.post('/newAppointment', async (req, res) => {
             values (?, ?, ?, ?, ?, ?, ?)`,
             [ newAppointment.uid, newAppointment.appt_date, newAppointment.petname, newAppointment.service, newAppointment.friendly, newAppointment.timestamp ]
         );
-
-        // TODO: Create the account creation confirmation page
-        res.render('accountSuccess', { newAccount });
+        // TODO: Set up new appointment page
+        res.render('appointment', { newAppointment, message: "You created a new appointment." });
     } else {
         // if the user is not logged in send them to the login page
         res.send('login', {message: "To create an appointment, please log"})

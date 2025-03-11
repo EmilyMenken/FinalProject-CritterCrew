@@ -10,7 +10,7 @@
 
 <!-- link to styleSheet -->
  <link rel="styleSheet" href="/styles/styles.css">
-
+ <script src="scripts/client-validation.js" defer></script>
 </head>
 <body>
    
@@ -19,32 +19,35 @@
     <form action="/newAppointment" method="post">
         <fieldset>
 
-<label for="date" class id="creatingNewAppointment"> Appointment date
+<label> Appointment date
 <input for ="date" type = "date" name="date"></input>
 </label>
 
-<label for="pname" class id="creatingNewAppointment"> Pet Name
-    <input type="text" maxlength="255" name="pname" placeholder="Mittens"></input>    
+
+<label> Pet Name
+    <input type="text" maxlength="255" name="pname" placeholder="Mittens"> Pet's name </input>    
 </label>
 
 <label for="petType" class id="creatingNewAppointment"> Pet type
     <input type="radio" name="petType" value="dog"> Dog </input>
-    <input type="radio" name="petType" value="cat"> Cat </input>    
+    <input type="radio" name="petType" value="cat"> Cat </input>
+    <span class="err" id="err-petType">Please select a type of pet.</span>  
 </label>   
     
-<label for="friendly?" class id="creatingNewAppointment"> Is your pet friendly?
-    <input type="checkbox" name="friendly?" value="friendly?"> Yes </input>  
+<label> Is your pet friendly?
+    <input type="checkbox" name="friendly?" value="friendly?"> Friendly </input>  
+    <input type="checkbox" name="friendly?" value="friendly?"> Not friendly </input>      
 </label>
 
 <label for="serviceType" class id="creatingNewAppointment">Service Type
     <select name= "serviceType" id="serviceType">
         <option value= "select"> Select type... </option>
-        <option value= "select"> Bath & Brush </option>
-        <option value= "select"> Bath & Haircut </option>
-        <option value= "select"> Nail clipping </option>
-        <option value= "select"> Deluxe package (Brush, Haircut, Nail clipping) </option>
+        <option value= "bath+brush"> Bath & Brush </option>
+        <option value= "bath+haircut"> Bath & Haircut </option>
+        <option value= "nailtrim"> Nail clipping </option>
+        <option value= "deluxe"> Deluxe package (Brush, Haircut, Nail clipping) </option>
     </select>
-        
+    <span class="err" id="err-service">Please select a service.</span>  
 </label>
 
 </fieldset>

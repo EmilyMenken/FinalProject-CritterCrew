@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In To Existing Account </title>
 
-<!-- favicon -->
-<link rel="icon" type="image/jpg" href="/pictures/logo.webp">
+    <!-- favicon -->
+    <link rel="icon" type="image/jpg" href="/pictures/logo.webp">
 
-<!-- link to styleSheet -->
- <link rel="styleSheet" href="/styles/styles.css">
+    <!-- link to styleSheet -->
+    <link rel="styleSheet" href="/styles/styles.css">
 
+    <script src="scripts/client-validation.js" defer></script>
 </head>
 <body>
 
@@ -20,7 +21,7 @@
     <% if (message && message.length > 0) { %>
         <span class="err"><%= message %></span>
     <% } %>
-    <form action="/login" method="post">    
+    <form action="/login" method="post" id="login-form">    
         <fieldset>
             <label for = "email" class = "loggingInInputs"> Enter your Email: 
             <input type="email" maxlength="255" name="email" id="email" placeholder="example@email.com"> </input>

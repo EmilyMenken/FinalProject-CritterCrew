@@ -22,31 +22,28 @@ export function validateNewUser(data) {
     // +TODO: Validate password
     // Must include capital, lowercase, 1 symbol
     // https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch04s19.html
-    var password = data.password;
+    let password = data.password;
     
     //console.log(password);
-    var minLength = /^[\s\S]{5,}$/,
+    let minLength = /^[\s\S]{5,}$/,
         upper = /[A-Z]/,
         lower = /[a-z]/,
         number = /[0-9]/,
         special = /[^A-Za-z0-9]/,
         count = 0;
     
-    if (minLength.test(password)) {
-        if (upper.test(password)) count++;
-        if (lower.test(password)) count++;
-        if (number.test(password)) count++;
-        if (special.test(password)) count++;
-    }
-    // console.log(count);
-    
-    if (count != 4) {
-        errors.push("The password must be at least 5 characters long and needs 1 uppercase letter (A-Z), 1 lowercase letter (A-Z), 1 digit (0-9), and 1 special character (~!@#$%^&*()_+`-={}[]\\|;:'\").,<>/?");
+    if ( !minLength.test(password) ||
+        !upper.test(password) ||
+        !lower.test(password) ||
+        !number.test(password) ||
+        !special.test(password)) {
+            errors.push("The password must be at least 5 characters long and needs 1 uppercase letter (A-Z), 1 lowercase letter (A-Z), 1 digit (0-9), and 1 special character (~!@#$%^&*()_+`-={}[]\\|;:'\").,<>/?");
     }
 
     //+TODO: Validate phone number
+    let validPhone = /^\d{3}-?\d{3}-?\d{4}$/
     if (!data.phone || data.phone.trim() === "" ||
-        !/^\d{3}-?\d{3}-?\d{4}$/.test(data.phone.trim())) {
+        !validPhone.test(data.phone.trim())) {
             errors.push("The phone number can contain only digits and hyphens in the format xxx-xxx-xxxx or xxxxxxxxxx.");
         }
 
@@ -65,7 +62,7 @@ export function validateNewUser(data) {
     // // +TODO: Validate state
     // // 2 letters from list of states
     // // 
-    var state = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
+    const state = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
 
     if (!state.includes(data.state)) {
         errors.push("State should be entered as the 2 letter abbreviation.")
@@ -88,7 +85,7 @@ export function validateNewUser(data) {
     }
 }
 
-// TODO: Validate new appointment
+// +TODO: Validate new appointment
 export function validateNewAppointment(data) {
     const errors = [];
 
@@ -113,14 +110,14 @@ export function validateNewAppointment(data) {
         }
     }
 
-    //TODO: validate service
+    //+TODO: validate service
     // may depend on form fields (dropdown?)
     // service varchar(255),
-    if (data.service === "PLACEHOLDER TEXT") { //TODO: Replace Placeholder Text
+    if (data.service === "select") { //+TODO: Replace Placeholder Text
         errors.push("Please select a service.");
-    } else { //TODO: Add services list
-        const validServices = [ "Placeholder1", "Placeholder2" ];
-        if (!validSizes.includes(data.service)) {
+    } else { //+TODO: Add services list
+        const validServices = [ "bath+brush", "bath+haircut", "nailtrim", "deluxe" ];
+        if (!validServices.includes(data.service)) {
             errors.push("Please select a valid service from our list.");
         }
     }
