@@ -19,26 +19,24 @@
     <form action="/newAppointment" method="post">
         <fieldset>
 
-<label> Appointment date
+<label for="date" class id="creatingNewAppointment"> Appointment date
 <input for ="date" type = "date" name="date"></input>
 </label>
 
-
-<label> Pet Name
-    <input type="text" maxlength="255" name="pname" placeholder="Mittens"> Pet's name </input>    
+<label for="pname" class id="creatingNewAppointment"> Pet Name
+    <input type="text" maxlength="255" name="pname" placeholder="Mittens"></input>    
 </label>
 
-<label> Pet type
+<label for="petType" class id="creatingNewAppointment"> Pet type
     <input type="radio" name="petType" value="dog"> Dog </input>
     <input type="radio" name="petType" value="cat"> Cat </input>    
 </label>   
     
-<label> Is your pet friendly?
-    <input type="checkbox" name="friendly?" value="friendly?"> Friendly </input>  
-    <input type="checkbox" name="friendly?" value="friendly?"> Not friendly </input>      
+<label for="friendly?" class id="creatingNewAppointment"> Is your pet friendly?
+    <input type="checkbox" name="friendly?" value="friendly?"> Yes </input>  
 </label>
 
-<label for="serviceType">Service Type
+<label for="serviceType" class id="creatingNewAppointment">Service Type
     <select name= "serviceType" id="serviceType">
         <option value= "select"> Select type... </option>
         <option value= "select"> Bath & Brush </option>
