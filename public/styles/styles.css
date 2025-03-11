@@ -9,8 +9,32 @@ body{
     color: #082B74;
 }
 
-img{
-    width: 200px;
+#landingImg{
+
+width: 250px;
+
+border-radius: 150px;
+padding:15px;
+
+}
+
+#createAccountImg{
+
+width:100px;
+border-radius: 50px;
+
+}
+
+#loginImg{
+    width:100px;
+    
+}
+
+#profilePagePicture, #newAppointmentImg{
+
+height: 250px;
+border-radius: 125px;
+
 }
 
 fieldset {
@@ -42,12 +66,13 @@ fieldset > label {
 
 label > input {
     width: 180px;
+    margin: 15px;
 }
 
 label > select{
 
     width:187px;
-
+    margin: 15px;
 }
 
 label {
@@ -70,6 +95,21 @@ button:hover{
 background-color: #B08EA2;
 }
 
-button#createAccountButton{
+button#createAccountButton, button#createNewAppointment{
 margin-top: 30px;
+
+}
+
+.err{
+
+color:#B08EA2;
+font-weight: bold;
+padding-left: 20px;
+
+}
+
+.radioCheckboxInputs{
+
+max-width: 20px;
+
 }
