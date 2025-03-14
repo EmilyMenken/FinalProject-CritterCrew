@@ -231,11 +231,8 @@ app.post('/newAppointment', async (req, res) => {
             [ newAppointment.uid, newAppointment.appt_date, newAppointment.petname, newAppointment.pettype, newAppointment.service, newAppointment.friendly ]
         );
 
-        // fill user so we can send this to the appointments page
-        let user = userData;
+        login(req, res, conn);
 
-        // TODO: Set up new appointment page
-        res.render('appointments', { user, newAppointment, message: "You created a new appointment." });
     } else {
         // if the user is not logged in send them to the login page
         res.send('login', {message: "To create an appointment, please log"})
