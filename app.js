@@ -113,8 +113,6 @@ app.post('/createAccount', async (req, res) => {
     }
 
     console.log(result);
-
-    newAccount.phone = newAccount.phone.replace(/-/g, "");
     
     // // console.log(newAccount);
 
