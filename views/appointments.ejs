@@ -20,6 +20,25 @@
 
 <h3>Your appointments</h3>
 
+<div id = "appointmentsDisplay">
+
+<% if (appointments.length > 0) { %>
+    <ul>
+        <% appointments.forEach(appointment => { %>
+        <p> Date: <%= appointment.appt_date %> </p>
+            <li> Pet Name: <%= appointment.petname %> </li>
+            <li> Pet Type: <%= appointment.pettype %>  </li>
+            <li> Service: <%= appointment.service %> </li>
+            <li> Friendly: <%= appointment.friendly ? 'Yes' : 'No' %> </li>
+            
+        <% }); %>
+    </ul>
+<% } else { %>
+    <p>No appointments scheduled.</p>
+<% } %>
+
+</div>
+
 <h1>Hello, <%= user.fname %>!</h1>
     <ul>
     <li> Last Name: <%=user.lname %> </li>
