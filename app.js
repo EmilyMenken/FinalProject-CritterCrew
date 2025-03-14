@@ -228,7 +228,7 @@ app.post('/newAppointment', async (req, res) => {
         const insertQuery = await conn.query(`insert into appointment
             (uid, appt_date, petname, pettype, service, friendly)
             values (?, ?, ?, ?, ?, ?)`,
-            [ newAppointment.uid, newAppointment.appt_date, newAppointment.pname, newAppointment.petType, newAppointment.serviceType, newAppointment.friendly ]
+            [ newAppointment.uid, newAppointment.appt_date, newAppointment.petname, newAppointment.pettype, newAppointment.service, newAppointment.friendly ]
         );
 
         // fill user so we can send this to the appointments page
