@@ -1,7 +1,7 @@
 import express from 'express';
 import mariadb from 'mariadb';
 import dotenv from 'dotenv';
-import { validateNewUser, validateNewAppointment} from './services/validation.js';
+import { validateNewUser, validateNewAppointment } from './services/validation.js';
 
 dotenv.config();
 
@@ -71,11 +71,13 @@ async function login(req, res) {
             console.log("Logging in as user...");
             const appointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
             console.log('appointments query: ' + JSON.stringify(appointments, null, 2));
-            res.render('appointments', {appointments, user, loggedIn});
+            conn.release();
+            res.render('appointments', {appointments, user, loggedIn});         
         } else {
             console.log("Logging in as admin...");
             const appointments = await conn.query('SELECT * FROM appointment');
             console.log('appointments query: ' + JSON.stringify(appointments, null, 2));
+            conn.release();
             res.render('appointments', {appointments, user, loggedIn})
         }
     }
@@ -126,6 +128,7 @@ app.post('/createAccount', async (req, res) => {
         res.render('logIn', {message: ""});
         
         // return so we don't make a user with a duplicate email
+        conn.release();
         return;
     }
     // console.log(emailCheck);
@@ -138,7 +141,8 @@ app.post('/createAccount', async (req, res) => {
     );
 
     // console.log(insertQuery);
-    console.log("Account created on database")
+    console.log("Account created on database");
+    conn.release();
     res.render('logIn', { newAccount, message: "Please log in below with your newly created account!" });
 });
 
@@ -162,8 +166,6 @@ app.post('/login', async (req, res) => {
     const results = await conn.query('SELECT * FROM users WHERE email = ? AND password = ?', [loginInfo.email, loginInfo.password]);
     console.log("Results:" + JSON.stringify(results, null, 2));
     // +TODO: If we have a username & password match in the DB, store the user info from the query and set logged in to true
-
-    
 
     if (results.length === 1) {
         //reseting userData just in case we logged in twice somehow
@@ -220,6 +222,7 @@ app.post('/newAppointment', async (req, res) => {
         const result = validateNewAppointment(newAppointment);
         if (!result.isValid) {
             console.log(result.errors);
+            conn.release();
             res.send(result.errors);
             return;
         }
@@ -235,7 +238,7 @@ app.post('/newAppointment', async (req, res) => {
 
     } else {
         // if the user is not logged in send them to the login page
-        res.send('login', {message: "To create an appointment, please log"})
+        res.send('login', {message: "To create an appointment, please log"});
     }
 });
 
