@@ -19,20 +19,19 @@
     <form action="/newAppointment" method="post">
         <fieldset>
 
-<label> Appointment date
-<input for ="date" type = "date" name="date" id="date"></input>
-<span class="err" id="err-date">Please select a future date.</span>
+<label> Appointment Date and Time
+<input type = "datetime-local" name="datetime" id="datetime" required></input>
+<span class="err" id="err-datetime">Please select a future date and time.</span>
 </label>
-
 
 <label> Pet Name
     <input type="text" maxlength="255" name="pname" placeholder="Mittens" id="pname"> Pet's name </input>
-    <span class="err" id="err-date">Pet name is required</span>  
+    <span class="err" id="err-pname">Pet name is required</span>  
 </label>
 
 <label> Pet type
-    <input type="radio" name="petType" value="dog"> Dog </input>
-    <input type="radio" name="petType" value="cat"> Cat </input>
+    <input type="radio" name="petType" value="dog" required> Dog </input>
+    <input type="radio" name="petType" value="cat" required> Cat </input>
     <span class="err" id="err-petType">Please select a type of pet.</span>  
 </label>   
     

@@ -44,18 +44,7 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-userData = {
-    //example user
-    uid: 2,
-    fname: "John",
-    lname: "Doe",
-    email: "johndoe@example.com",
-    phone: "1234567890",
-    street_address: "123 Street SE Ave",
-    city: "city",
-    state: "IL",
-    zip_code: "78451"
-};
+userData = null;
 loggedIn = true;
 
 
@@ -166,13 +155,21 @@ app.post('/login', async (req, res) => {
         password: req.body.password.trim()
     }
     console.log("message")
+    
     const conn = await connect();
 
     // +TODO: Query the DB to see if we have an account where the email and password matches
     const results = await conn.query('SELECT * FROM users WHERE email = ? AND password = ?', [loginInfo.email, loginInfo.password]);
     console.log("Results:" + JSON.stringify(results, null, 2));
     // +TODO: If we have a username & password match in the DB, store the user info from the query and set logged in to true
+
+    
+
     if (results.length === 1) {
+        //reseting userData just in case we logged in twice somehow
+        userData = null;
+
+        //saving the new value to userdata
         userData = results[0];
         loggedIn = true;
     }
@@ -202,17 +199,19 @@ app.post('/newAppointment', async (req, res) => {
     // foreign key (uid) references users(uid)
     
     // if the user is logged in, we can process the new appointment
-    if (loggedIn) {
+    if (loggedIn && userData !== null && !isNaN(userData.uid)) {
+        
         const newAppointment = {
             uid: userData.uid,
-            appt_date: req.body.appt_date,
-            petname: req.body.petname,
-            pettype: req.body.pettype,
-            service: req.body.service,
+            appt_date: req.body.datetime,
+            petname: req.body.pname,
+            pettype: req.body.petType,
+            service: req.body.serviceType,
             // set boolean for friendly or not
-            friendly: req.body.friendly ? 1 : 0,
-            timestamp: new Date()
+            friendly: req.body.friendly ? 1 : 0
         }
+
+        console.log(newAppointment);
     
         // connect to the database
         const conn = await connect();
@@ -227,12 +226,16 @@ app.post('/newAppointment', async (req, res) => {
 
         // +TODO: implement add new appointment query
         const insertQuery = await conn.query(`insert into appointment
-            (uid, appt_date, petname, pettype, service, friendly, timestamp)
-            values (?, ?, ?, ?, ?, ?, ?)`,
-            [ newAppointment.uid, newAppointment.appt_date, newAppointment.petname, newAppointment.service, newAppointment.friendly, newAppointment.timestamp ]
+            (uid, appt_date, petname, pettype, service, friendly)
+            values (?, ?, ?, ?, ?, ?)`,
+            [ newAppointment.uid, newAppointment.appt_date, newAppointment.pname, newAppointment.petType, newAppointment.serviceType, newAppointment.friendly ]
         );
+
+        // fill user so we can send this to the appointments page
+        let user = userData;
+
         // TODO: Set up new appointment page
-        res.render('appointment', { newAppointment, message: "You created a new appointment." });
+        res.render('appointments', { user, newAppointment, message: "You created a new appointment." });
     } else {
         // if the user is not logged in send them to the login page
         res.send('login', {message: "To create an appointment, please log"})

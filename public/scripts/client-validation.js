@@ -8,6 +8,8 @@ function loginValidation() {
 function newAccountValidation() {
     clearErrors();
     let isValid = true;
+    
+    console.log("Validating new account...");
 
     let fname = document.getElementsById('fname').value.trim();
     if (fname === "") {
@@ -87,23 +89,26 @@ function newAppointmentValidation() {
     clearErrors();
     let isValid = true;
 
+    console.log("Validating new appointment...");
+
     //+TODO: validation
-    // getting today's date
+
+    // pull in the form date and set it to a javascript dateTime object
+    let datetimeInput = document.getElementById("datetime").value;
+    let appointmentDateTime = new Date(datetimeInput);
+
+    // set the earliest available date at tomorrow @ 9am (pretend business hours)
     const tomorrow = new Date();
-    // setting it to tomorrow and taking out the timestamp
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(0,0,0,0);
+    tomorrow.setDate(now.getDate() + 1);
 
-    let date = new Date(document.getElementById("date").value);
-
-    if (date < tomorrow) {
-        document.getElementById('err-date').style.display = "block";
+    if (appointmentDateTime < tomorrow) {
+        document.getElementById('err-datetime').style.display = "block";
         isValid = false;
     }
 
     let pname = document.getElementById("pname").value;
     if (pname === "") {
-        document.getElementById('err-date').style.display = "block";
+        document.getElementById('err-pname').style.display = "block";
         isValid = false;
     }
 
