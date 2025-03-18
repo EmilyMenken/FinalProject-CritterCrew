@@ -17,12 +17,19 @@
 
     <img id="profilePagePicture" src = "/pictures/catLandingPagePicture.jpg">
 
+    <h1>Hello, <%= user.fname %>!</h1>
 
-<h3>Your appointments</h3>
+<div id="container">
+    
+    <div id ="floatLeft">
 
-<div id = "appointmentsDisplay">
+    <a href="/newAppointment"><button>Schedule a new Appointment</button></a> 
 
-<% if (appointments.length > 0) { %>
+    <h3>Your appointments</h3>
+
+    <div id = "appointmentsDisplay">
+
+    <% if (appointments.length > 0) { %>
     <ul>
         <% appointments.forEach(appointment => { %>
         <p> Date: <%= appointment.appt_date %> </p>
@@ -31,33 +38,40 @@
             <li> Service: <%= appointment.service %> </li>
             <li> Friendly: <%= appointment.friendly ? 'Yes' : 'No' %> </li>
             
+            <hr>
+
         <% }); %>
     </ul>
-<% } else { %>
+
+
+    <% } else { %>
     <p>No appointments scheduled.</p>
-<% } %>
+    <% } %>
+
+    </div>
+    </div> <!-- end floatLeft-->
+
+
+    <div id="floatRight">
+ 
+        <a href="/logout"><button>Log out</button></a>
+
+        <h3>User information</h3>
+
+        <ul>
+        <li> Last Name: <%=user.lname %> </li>
+        <li> Email: <%= user.email %> </li>
+        <li> Phone Number: <%= user.phone %> </li>
+        <li> Current Address: <%= user.street_address%> </li>
+        <li> Current city: <%=user.city %> </li>
+        <li> Current state: <%= user.state %></li>
+        <li> Current zipcode: <%= user.zip_code %> </li>
+        <li> Account created: <%= user.timestamp %></li>
+        </ul>
+
+    </div>
 
 </div>
-
-<h1>Hello, <%= user.fname %>!</h1>
-    <ul>
-    <li> Last Name: <%=user.lname %> </li>
-    <li> Email: <%= user.email %> </li>
-    <li> Phone Number: <%= user.phone %> </li>
-    <li> Current Address: <%= user.street_address%> </li>
-    <li> Current city: <%=user.city %> </li>
-    <li> Current state: <%= user.state %></li>
-    <li> Current zipcode: <%= user.zip_code %> </li>
-    <li> Account created: <%= user.timestamp %></li>
-    </ul>
-
-    
-
-<h2>Make an Appointment!</h2>
-
-<a href="/"><button>Back to landing page</button></a>
-<a href="/newAppointment"><button>Schedule a new Appointment</button></a> 
-
 
 </body>
 </html>

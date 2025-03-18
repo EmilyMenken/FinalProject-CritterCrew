@@ -66,13 +66,13 @@ async function login(req, res) {
 
         if (userData.uid !== 1) {
             console.log("Logging in as user...");
-            appointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
+            let appointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
             console.log('appointments query: ' + JSON.stringify(appointments, null, 2));
             conn.release();
             res.render('appointments', {appointments, user, loggedIn});         
         } else {
             console.log("Logging in as admin...");
-            appointments = await conn.query('SELECT * FROM appointment');
+            let appointments = await conn.query('SELECT * FROM appointment');
             console.log('appointments query: ' + JSON.stringify(appointments, null, 2));
             conn.release();
             res.render('appointments', {appointments, user, loggedIn})
@@ -247,7 +247,6 @@ app.get('/logout', (req, res) => {
     // reset loggedIn and userData
     loggedIn = false;
     userData = null;
-    appointments = null;
     
     // send user to Home page
     res.render('home');

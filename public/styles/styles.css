@@ -37,6 +37,16 @@ border-radius: 125px;
 
 }
 
+#profilePagePicture{
+
+display: flex;
+flex-direction: column;
+align-self: center;
+
+padding:30px;
+
+}
+
 fieldset {
     display: flex;
     flex-direction: column;
@@ -117,21 +127,12 @@ max-width: 20px;
 
 }
 
-/* #appointmentsDisplay >ul{
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: space-between;
-font-weight: bold;
-margin: 10px;
-padding:10px;
-} */
 
 #appointmentsDisplay > li{
     
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
 
     justify-content: space-between;
 
@@ -152,3 +153,80 @@ ul, li{
 margin-bottom: 10px;
 
     }
+
+
+li{
+
+list-style-type: none;
+
+}    
+
+/* #floatLeft{
+
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    align-items: center;
+    
+    width: 200px;
+    
+    padding-left: 20px;
+}
+
+#floatRight{
+
+
+display: flex;
+flex-direction: column;
+align-self: flex-end;
+align-items: center;
+
+width: 200px;
+
+padding-right: 20px;
+
+}
+ */
+
+
+#floatLeft > a{
+
+display: inline-block;
+
+}
+
+#floatLeft {
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 400px; 
+
+justify-content: space-between;
+
+padding-left:300px;
+
+
+}
+
+#floatRight{
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 400px; 
+
+justify-content: space-between;
+
+padding-right:300px;
+}
+
+
+#container {
+    display: flex;
+    justify-content: space-between; /* Pushes them to opposite sides */
+    align-items: flex-start; /* Aligns them at the top */
+    width: 100%; /* Ensures it spans the full width */
+}

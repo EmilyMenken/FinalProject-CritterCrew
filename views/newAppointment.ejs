@@ -16,7 +16,7 @@
    
     <p>Create New Appointment</p>
 
-    <form action="/newAppointment" method="post">
+<form action="/newAppointment" method="post" >
         <fieldset>
 
 <label> Appointment Date and Time
@@ -25,7 +25,7 @@
 </label>
 
 <label> Pet Name
-    <input type="text" maxlength="255" name="pname" placeholder="Mittens" id="pname"> Pet's name </input>
+    <input type="text" maxlength="255" name="pname" placeholder="Mittens" id="pname"></input>
     <span class="err" id="err-pname">Pet name is required</span>  
 </label>
 
@@ -52,6 +52,10 @@
 <button type="submit" id ="newAppointmentButton">Submit</button>
 </fieldset>
 </form>
+
+<a href="/logout"><button>Log out</button></a>
+
+<a href ="/appointments"><button>Your scheduled appointments</button> </a>
 
 </body>
 </html>
