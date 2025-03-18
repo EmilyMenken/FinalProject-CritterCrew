@@ -2,6 +2,7 @@ document.getElementById('appointment-form').onsubmit = validate;
 
 function validate() {
     clearErrors();
+    let isValid = true;
 
     console.log("Validating new appointment...");
 
