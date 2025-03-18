@@ -44,9 +44,6 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-userData = null;
-loggedIn = true;
-
 
 async function login(req, res) {
     // +TODO: // load the correct user page (user or admin) based on uid (admin account should be uid: 1)
@@ -69,13 +66,13 @@ async function login(req, res) {
 
         if (userData.uid !== 1) {
             console.log("Logging in as user...");
-            const appointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
+            appointments = await conn.query('SELECT * FROM appointment WHERE uid = ?', [userData.uid]);
             console.log('appointments query: ' + JSON.stringify(appointments, null, 2));
             conn.release();
             res.render('appointments', {appointments, user, loggedIn});         
         } else {
             console.log("Logging in as admin...");
-            const appointments = await conn.query('SELECT * FROM appointment');
+            appointments = await conn.query('SELECT * FROM appointment');
             console.log('appointments query: ' + JSON.stringify(appointments, null, 2));
             conn.release();
             res.render('appointments', {appointments, user, loggedIn})
@@ -173,18 +170,22 @@ app.post('/login', async (req, res) => {
         userData = results[0];
         loggedIn = true;
     }
-
-    login(req, res, conn);
+    conn.release();
+    login(req, res);
 });
 
 app.get('/appointments', async (req, res) => {
-    res.render('appointments');
-})
+    if (!loggedIn || userData === null || userData.uid === undefined) {
+        return res.redirect('/login');
+    }
+    
+    login(req, res);
+});
 
 app.get('/newAppointment', async (req, res) => {
     console.log('going to appointments page');
     res.render('newAppointment');
-})
+});
 
 // +TODO: Implement create new appointment
 app.post('/newAppointment', async (req, res) => {
@@ -246,6 +247,7 @@ app.get('/logout', (req, res) => {
     // reset loggedIn and userData
     loggedIn = false;
     userData = null;
+    appointments = null;
     
     // send user to Home page
     res.render('home');
