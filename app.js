@@ -190,7 +190,7 @@ app.get('/profile', async (req, res) => {
         timestamp: userData.timestamp
     }
 
-    res.render('/profile', {user});
+    res.render('profile', {user});
 });
 
 app.get('/appointments', async (req, res) => {
