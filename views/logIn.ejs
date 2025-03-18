@@ -11,7 +11,7 @@
     <!-- link to styleSheet -->
     <link rel="styleSheet" href="/styles/styles.css">
 
-    <script src="/scripts/client-validation.js" defer></script>
+    <script src="scripts/login-validation.js" defer></script>
 </head>
 <body>
 
@@ -23,17 +23,19 @@
     <% if (message && message.length > 0) { %>
         <span class="err"><%= message %></span>
     <% } %>
-    <form action="/login" method="post" id="login-form">    
+    <form action="/login" method="post" id="login-form">
         <fieldset>
             <label for = "email" class = "loggingInInputs"> Enter your Email: 
             <input type="email" maxlength="255" name="email" id="email" placeholder="example@email.com"> </input>
             </label>
+            <span class="err" id="err-email">Please enter an email address.</span>
 
             <label for = "password" class = "loggingInInputs"> Enter your password:
             <input type="text" maxlength="255" name="password" id="password" placeholder="V3ryS3cur3P@ssw0rd"> </input>
             </label>
+            <span class="err" id="err-password">Please enter a password.</span>
 
-<button type="submit" id ="loginButton">Submit</button>
+            <button type="submit" id ="loginButton">Submit</button>
         </fieldset> <!-- End Fieldset -->
     </form> <!-- End form -->
 

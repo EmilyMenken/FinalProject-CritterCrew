@@ -10,7 +10,7 @@
 
 <!-- link to styleSheet -->
 <link rel="stylesheet" href="/styles/styles.css">
-<script src="scripts/client-validation.js" defer></script>
+<script src="scripts/account-validation.js" defer></script>
 </head>
 <body>
 
@@ -37,8 +37,8 @@
                 <span class="err" id="err-password">Password is required and must be at least 5 characters long with one uppercase and one lowercase letter, one number, and a symbol.</span>
             </label>
             <label for="phone">Phone:
-                <input type="tel" maxlength="12" name="phone" id="phone" placeholder="000-000-0000">
-                <span class="err" id="err-phone">Phone number is required and must be in the xxx-xxx-xxxx format, including hyphens.</span>
+                <input type="tel" maxlength="12" name="phone" id="phone" placeholder="0000000000">
+                <span class="err" id="err-phone">Phone number is required and must be 10 digits.</span>
             </label>
             <label for="street_address">Street Address:
                 <input type="text" maxlength="255" name="street_address" id="street_address" placeholder="555 A Ave.">
