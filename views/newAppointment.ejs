@@ -10,13 +10,13 @@
 
 <!-- link to styleSheet -->
  <link rel="styleSheet" href="/styles/styles.css">
- <script src="scripts/client-validation.js" defer></script>
+ <script src="scripts/appointment-validation.js" defer></script>
 </head>
 <body>
    
     <p>Create New Appointment</p>
 
-<form action="/newAppointment" method="post" >
+    <form action="/newAppointment" method="post">
         <fieldset>
 
 <label> Appointment Date and Time
@@ -30,13 +30,13 @@
 </label>
 
 <label> Pet type
-    <input type="radio" name="petType" value="dog" required> Dog </input>
-    <input type="radio" name="petType" value="cat" required> Cat </input>
+    <input class ="smallerInputs" type="radio" name="petType" value="dog" required> Dog </input>
+    <input class ="smallerInputs" type="radio" name="petType" value="cat" required> Cat </input>
     <span class="err" id="err-petType">Please select a type of pet.</span>  
 </label>   
     
 <label> Is your pet friendly?
-    <input type="checkbox" name="friendly?" value="friendly?"> Yes </input>
+    <input class ="smallerInputs" type="checkbox" name="friendly?" value="friendly?"> Yes </input>
 </label>
 
 <label for="serviceType">Service Type
@@ -53,9 +53,11 @@
 </fieldset>
 </form>
 
-<a href="/logout"><button>Log out</button></a>
+<a href="/appointments"><button>Back to scheduled appointments</button></a> 
+<a href="/logout"><button>Log out</button></a> 
 
-<a href ="/appointments"><button>Your scheduled appointments</button> </a>
+
+
 
 </body>
 </html>

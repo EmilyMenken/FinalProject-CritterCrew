@@ -20,7 +20,6 @@ const PORT = process.env.APP_PORT || 3000;
 let loggedIn = false;
 let userData = null;
 
-
 async function connect() {
     try {
         const conn = await pool.getConnection();
@@ -75,7 +74,7 @@ async function login(req, res) {
             let appointments = await conn.query('SELECT * FROM appointment');
             console.log('appointments query: ' + JSON.stringify(appointments, null, 2));
             conn.release();
-            res.render('appointments', {appointments, user, loggedIn})
+            res.render('appointments', {appointments, user, loggedIn});
         }
     }
 }
