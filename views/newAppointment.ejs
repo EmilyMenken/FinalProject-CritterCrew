@@ -30,13 +30,13 @@
 </label>
 
 <label> Pet type
-    <input type="radio" name="petType" value="dog" required> Dog </input>
-    <input type="radio" name="petType" value="cat" required> Cat </input>
+    <input class ="smallerInputs" type="radio" name="petType" value="dog" required> Dog </input>
+    <input class ="smallerInputs" type="radio" name="petType" value="cat" required> Cat </input>
     <span class="err" id="err-petType">Please select a type of pet.</span>  
 </label>   
     
 <label> Is your pet friendly?
-    <input type="checkbox" name="friendly?" value="friendly?"> Yes </input>
+    <input class ="smallerInputs" type="checkbox" name="friendly?" value="friendly?"> Yes </input>
 </label>
 
 <label for="serviceType">Service Type
@@ -52,6 +52,9 @@
 <button type="submit" id ="newAppointmentButton">Submit</button>
 </fieldset>
 </form>
+
+<a href="/logout"><button>Log out</button></a>
+<a href="/appointments"><button>Back to previous page</button></a>
 
 </body>
 </html>
