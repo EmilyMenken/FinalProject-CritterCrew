@@ -175,6 +175,9 @@ app.post('/login', async (req, res) => {
 
 app.get('/profile', async (req, res) => {
     if (!loggedIn || userData === null || userData.uid === undefined) {
+        // if not logged in send to the login page (so the login route runs)
+        // https://www.geeksforgeeks.org/express-js-res-redirect-function/?utm_source=chatgpt.com
+        // using return to make sure the rest of the profile route doesn't run
         return res.redirect('/login');
     }
 
@@ -195,6 +198,8 @@ app.get('/profile', async (req, res) => {
 
 app.get('/appointments', async (req, res) => {
     if (!loggedIn || userData === null || userData.uid === undefined) {
+        // if not logged in send to the login page (so the login route runs)
+        // https://www.geeksforgeeks.org/express-js-res-redirect-function/?utm_source=chatgpt.com
         return res.redirect('/login');
     }
     
