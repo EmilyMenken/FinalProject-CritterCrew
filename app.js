@@ -20,7 +20,6 @@ const PORT = process.env.APP_PORT || 3000;
 let loggedIn = false;
 let userData = null;
 
-
 async function connect() {
     try {
         const conn = await pool.getConnection();
@@ -247,7 +246,6 @@ app.get('/logout', (req, res) => {
     // reset loggedIn and userData
     loggedIn = false;
     userData = null;
-    appointments = null;
     
     // send user to Home page
     res.render('home');
