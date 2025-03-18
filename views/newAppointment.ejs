@@ -16,7 +16,7 @@
    
     <p>Create New Appointment</p>
 
-    <form action="/newAppointment" method="post" id="appointment-form">
+    <form action="/newAppointment" method="post">
         <fieldset>
             <label> Appointment Date and Time
             <input type = "datetime-local" name="datetime" id="datetime" required></input>
@@ -52,8 +52,11 @@
         </fieldset>
     </form>
 
-<a href="/logout"><button>Log out</button></a>
-<a href="/appointments"><button>Back to previous page</button></a>
+<a href="/appointments"><button>Back to scheduled appointments</button></a> 
+<a href="/logout"><button>Log out</button></a> 
+
+
+
 
 </body>
 </html>
