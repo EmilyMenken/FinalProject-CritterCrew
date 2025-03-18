@@ -1,3 +1,4 @@
+minmumdate = new Date()
 document.getElementById('appointment-form').onsubmit = validate;
 
 function validate() {
@@ -8,18 +9,18 @@ function validate() {
 
     //+TODO: validation
 
-    // pull in the form date and set it to a javascript dateTime object
-    let datetimeInput = document.getElementById("datetime").value;
-    let appointmentDateTime = new Date(datetimeInput);
+    // // pull in the form date and set it to a javascript dateTime object
+    // let datetimeInput = document.getElementById("datetime").value;
+    
 
-    // set the earliest available date at tomorrow @ 9am (pretend business hours)
-    const tomorrow = new Date();
-    tomorrow.setDate(now.getDate() + 1);
+    // // set the earliest available date at tomorrow @ 9am (pretend business hours)
+    // const tomorrow = new Date();
+    // tomorrow.setDate(now.getDate() + 1);
 
-    if (appointmentDateTime < tomorrow) {
-        document.getElementById('err-datetime').style.display = "block";
-        isValid = false;
-    }
+    // if (Date.parse(datetimeInput) < Date.parse(datetimeInput)) {
+    //     document.getElementById('err-datetime').style.display = "block";
+    //     isValid = false;
+    // }
 
     let pname = document.getElementById("pname").value;
     if (pname === "") {

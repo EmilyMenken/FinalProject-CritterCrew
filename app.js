@@ -173,6 +173,26 @@ app.post('/login', async (req, res) => {
     login(req, res);
 });
 
+app.get('/profile', async (req, res) => {
+    if (!loggedIn || userData === null || userData.uid === undefined) {
+        return res.redirect('/login');
+    }
+
+    const user = {
+        fname: userData.fname,
+        lname: userData.lname,
+        email: userData.email,
+        phone: userData.phone,
+        street_address: userData.street_address,
+        city: userData.city,
+        state: userData.state,
+        zip_code: userData.zip_code,
+        timestamp: userData.timestamp
+    }
+
+    res.render('/profile', {user});
+});
+
 app.get('/appointments', async (req, res) => {
     if (!loggedIn || userData === null || userData.uid === undefined) {
         return res.redirect('/login');
