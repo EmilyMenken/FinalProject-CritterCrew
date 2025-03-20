@@ -16,3 +16,5 @@ Code Authors: Ash Gray and Emily Menken
   - created queries to insert form information using mariadb library and dotenv
   - Created and imported server-side form validation javascript to prevent invalid data from reaching database
 - Font-end= HTML, CSS, EJS: Emily Menken
+  - Created styling for all veiwable pages
+  - Created EJS/HTML pages and form inputs
