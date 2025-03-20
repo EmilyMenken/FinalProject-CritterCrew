@@ -22,32 +22,45 @@
         <fieldset>
             <label for="fname">First Name:
                 <input type="text" maxlength="255" name="fname" id="fname" placeholder="John">
-                <span class="err" id="err-fname">First name is required.</span>
             </label>
+            <span class="err" id="err-fname">First name is required.</span>
+
+
             <label for="lname">Last Name:
                 <input type="text" maxlength="255" name="lname" id="lname" placeholder="Smith">
-                <span class="err" id="err-lname">Last name is required.</span>
-            </label>    
+            </label>  
+            <span class="err" id="err-lname">Last name is required.</span>
+
+            
             <label for="email">Email:
                 <input type="email" maxlength="255" name="email" id="email" placeholder="example@email.com">
-                <span class="err" id="err-email">Email is required and must be in a valid format. ex: username@example.com</span>
             </label>
+            <span class="err" id="err-email">Email is required and must be in a valid format. ex: username@example.com</span>
+
+
             <label for="password">Password:
                 <input type="text" maxlength="255" name="password" id="password" placeholder="enter a password">
-                <span class="err" id="err-password">Password is required and must be at least 5 characters long with one uppercase and one lowercase letter, one number, and a symbol.</span>
             </label>
+            <span class="err" id="err-password">Password is required and must be at least 5 characters long with one uppercase and one lowercase letter, one number, and a symbol.</span>
+
+
             <label for="phone">Phone:
-                <input type="tel" maxlength="12" name="phone" id="phone" placeholder="0000000000">
-                <span class="err" id="err-phone">Phone number is required and must be 10 digits.</span>
+                <input type="tel" maxlength="10" name="phone" id="phone" placeholder="0000000000">
             </label>
+            <span class="err" id="err-phone">Phone number is required and must be 10 digits.</span>
+
+
             <label for="street_address">Street Address:
                 <input type="text" maxlength="255" name="street_address" id="street_address" placeholder="555 A Ave.">
-                <span class="err" id="err-address">Street address is required.</span>
             </label>
+            <span class="err" id="err-address">Street address is required.</span>
+
+
             <label for="city">City:
                 <input type="text" maxlength="255" name="city" id="city" placeholder="Hometown">
-                <span class="err" id="err-city">City is required.</span>
             </label>
+            <span class="err" id="err-city">City is required.</span>
+
 
 <!--grabbed the drop down list from this website ->  https://www.freeformatter.com/usa-state-list-html-select.html -->
 
@@ -106,14 +119,16 @@
                     <option value="WI">Wisconsin</option>
                     <option value="WY">Wyoming</option>
                 </select>
-            <span class="err" id="err-state">Please select a state.</span>
            </label>
+           <span class="err" id="err-state">Please select a state.</span>
 
 
             <label for="zip_code">Zip Code:
                 <input type="text" maxlength="5" name="zip_code" id="zip_code" placeholder="55555">
-                <span class="err" id="err-zip_code">Zip code is required. Please enter a 5-digit zip code.</span>
             </label>
+            <span class="err" id="err-zip_code">Zip code is required. Please enter a 5-digit zip code.</span>
+
+
             <button type="submit" id ="createAccountButton">Submit</button>    
         </fieldset> <!-- End Fieldset -->
     

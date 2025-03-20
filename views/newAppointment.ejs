@@ -28,15 +28,24 @@
     <span class="err" id="err-pname">Pet name is required</span>  
 </label>
 
-            <label> Pet type
+           
+
+            <label> Pet type   
+
+                <div id="smallInputsPlease">
                 <input class ="smallerInputs" type="radio" name="petType" value="dog" required> Dog </input>
                 <input class ="smallerInputs" type="radio" name="petType" value="cat" required> Cat </input>
                 <span class="err" id="err-petType">Please select a type of pet.</span>  
-            </label>   
+                </div>
+            </label> 
                 
             <label> Is your pet friendly?
+                <div id="smallInputsPlease">
                 <input class ="smallerInputs" type="checkbox" name="friendly?" value="friendly?"> Yes </input>
+                </div>
             </label>
+
+        </div>
 
             <label for="serviceType">Service Type
                 <select name= "serviceType" id="serviceType">

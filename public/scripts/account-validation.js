@@ -6,7 +6,7 @@ function validate() {
     
     console.log("Validating new account...");
 
-    let fname = document.getElementsById('fname').value.trim();
+    let fname = document.getElementById('fname').value.trim();
     if (fname === "") {
         document.getElementById('err-fname').style.display = "block";
         isValid = false;
@@ -22,7 +22,7 @@ function validate() {
     if (email === "" ||
         email.indexOf("@") === -1 ||
         email.indexOf(".") === -1) {
-        document.getElementById('email').style.display = "block";
+        document.getElementById('err-email').style.display = "block";
         isValid = false;
     }
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions

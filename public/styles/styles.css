@@ -122,19 +122,19 @@ display: none;
 }
 
 .smallerInputs{
-
-max-width: 20px;
+width: 20px;
 
 }
 
 
-#appointmentsDisplay > li{
+#appointmentsDisplay > ul{
     
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
 
     justify-content: space-between;
+
+    padding-left:0;
 
         
     }
@@ -161,39 +161,11 @@ list-style-type: none;
 
 }    
 
-/* #floatLeft{
-
-    display: flex;
-    flex-direction: column;
-    align-self: flex-start;
-    align-items: center;
-    
-    width: 200px;
-    
-    padding-left: 20px;
-}
-
-#floatRight{
-
-
-display: flex;
-flex-direction: column;
-align-self: flex-end;
-align-items: center;
-
-width: 200px;
-
-padding-right: 20px;
-
-}
- */
-
 
 #buttons >button{
 
     display: flex;
     flex-direction: row;
-
      
 }
 
@@ -204,3 +176,29 @@ padding-right: 20px;
 
 }
 
+#smallInputsPlease>input[type=radio]{
+
+display:inline-flex;
+
+flex-direction: column;
+
+justify-content: flex-start;
+
+margin:10px;
+padding:10px;
+
+}
+
+
+#smallInputsPlease>input[type=checkbox]{
+
+    display:inline-flex;
+    
+    flex-direction: column;
+    
+    justify-content: flex-start;
+    
+    margin:10px;
+    padding:10px;
+    
+}

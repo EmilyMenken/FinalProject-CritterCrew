@@ -41,7 +41,7 @@ export function validateNewUser(data) {
     }
 
     //+TODO: Validate phone number
-    let validPhone = /^\d{3}-?\d{3}-?\d{4}$/
+    let validPhone = /^\d{10}$/
     if (!data.phone || data.phone.trim() === "" ||
         !validPhone.test(data.phone.trim())) {
             errors.push("The phone number can contain only digits and hyphens in the format xxx-xxx-xxxx or xxxxxxxxxx.");
