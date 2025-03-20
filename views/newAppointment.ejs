@@ -16,28 +16,26 @@
    
     <p>Create New Appointment</p>
 
-    <form action="/newAppointment" method="post">
+    <form action="/newAppointment" method="post" id="appt-form">
         <fieldset>
             <label> Appointment Date and Time
             <input type = "datetime-local" name="datetime" id="datetime" required></input>
-            <span class="err" id="err-datetime">Please select a future date and time.</span>
             </label>
+            <span class="err" id="err-datetime">Please select a future date and time between 9am and 10pm.</span>
 
-<label> Pet Name
-    <input type="text" maxlength="255" name="pname" placeholder="Mittens" id="pname"></input>
-    <span class="err" id="err-pname">Pet name is required</span>  
-</label>
-
+            <label> Pet Name
+                <input type="text" maxlength="255" name="pname" placeholder="Mittens" id="pname"></input>
+            </label>
+            <span class="err" id="err-pname">Pet name is required</span>  
            
 
             <label> Pet type   
-
                 <div id="smallInputsPlease">
                 <input class ="smallerInputs" type="radio" name="petType" value="dog" required> Dog </input>
                 <input class ="smallerInputs" type="radio" name="petType" value="cat" required> Cat </input>
-                <span class="err" id="err-petType">Please select a type of pet.</span>  
                 </div>
             </label> 
+            <span class="err" id="err-petType">Please select a type of pet.</span>  
                 
             <label> Is your pet friendly?
                 <div id="smallInputsPlease">
@@ -55,8 +53,9 @@
                     <option value= "nailtrim"> Nail clipping </option>
                     <option value= "deluxe"> Deluxe package (Brush, Haircut, Nail clipping) </option>
                 </select>
-                <span class="err" id="err-service">Please select a service.</span>  
             </label>
+            <span class="err" id="err-service">Please select a service.</span>
+
             <button type="submit" id ="newAppointmentButton">Submit</button>
         </fieldset>
     </form>

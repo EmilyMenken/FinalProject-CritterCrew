@@ -1,5 +1,5 @@
 minmumdate = new Date()
-document.getElementById('appointment-form').onsubmit = validate;
+document.getElementById('appt-form').onsubmit = validate;
 
 function validate() {
     clearErrors();
@@ -7,20 +7,17 @@ function validate() {
 
     console.log("Validating new appointment...");
 
-    //+TODO: validation
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);    
+    let dateInput = document.getElementById("datetime").value;
+    date = new Date(dateInput);
 
-    // // pull in the form date and set it to a javascript dateTime object
-    // let datetimeInput = document.getElementById("datetime").value;
-    
-
-    // // set the earliest available date at tomorrow @ 9am (pretend business hours)
-    // const tomorrow = new Date();
-    // tomorrow.setDate(now.getDate() + 1);
-
-    // if (Date.parse(datetimeInput) < Date.parse(datetimeInput)) {
-    //     document.getElementById('err-datetime').style.display = "block";
-    //     isValid = false;
-    // }
+    //if (today <= date || (date.getHours() < 9 || date.getHours() > 21)
+    if (date.getHours() < 9 || date.getHours() > 21 || date.getDate() <= today.getDate()) {
+        document.getElementById('err-datetime').style.display = "block";
+        // document.getElementById('err-datetime').innerHTML = date.getHours() + " date:" + date.getDate() + " today:" + today.getDate();
+        isValid = false;
+    }
 
     let pname = document.getElementById("pname").value;
     if (pname === "") {
